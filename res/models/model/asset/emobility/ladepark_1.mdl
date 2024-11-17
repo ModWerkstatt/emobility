@@ -1,0 +1,124 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = { 4.4, 1.5, 9.6, },
+		bbMin = { -4.4, -7.75, -0.2, },
+	},
+	collider = {
+		params = {
+			halfExtents = { 4.4, 4.625, 1.2, },
+		},
+		transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+		type = "BOX",
+	},
+	lods = {
+		{
+			node = {
+				children = {
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/ladepark_boden_lod0.msh",
+						name = "Boden",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/supercharger_lod0.msh",
+						name = "Pfeiler",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -3.25, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/ladepark_dach_lod0.msh",
+						name = "Dach",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark_glas.mtl", },
+						mesh = "asset/emobility/ladepark_glas_lod0.msh",
+						name = "Dach",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+				},
+				name = "RootNode",
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 100,
+		},
+		{
+			node = {
+				children = {
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/ladepark_boden_lod1.msh",
+						name = "Boden",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/supercharger_lod1.msh",
+						name = "Pfeiler",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -3.25, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/ladepark_dach_lod1.msh",
+						name = "Dach",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark_glas.mtl", },
+						mesh = "asset/emobility/ladepark_glas_lod1.msh",
+						name = "Dach",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+				},
+				name = "RootNode",
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+			},
+			static = false,
+			visibleFrom = 10,
+			visibleTo = 300,
+		},
+		{
+			node = {
+				children = {
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/ladepark_boden_lod2.msh",
+						name = "Boden",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/supercharger_lod2.msh",
+						name = "Pfeiler",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -3.25, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark.mtl", },
+						mesh = "asset/emobility/ladepark_dach_lod2.msh",
+						name = "Dach",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+					{
+						materials = { "asset/emobility/ladepark_glas.mtl", },
+						mesh = "asset/emobility/ladepark_glas_lod2.msh",
+						name = "Dach",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+				},
+				name = "RootNode",
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+			},
+			static = false,
+			visibleFrom = 300,
+			visibleTo = 1000,
+		},
+	},
+	metadata = { },
+	version = 1,
+}
+end
