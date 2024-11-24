@@ -17,7 +17,7 @@ return {
 				children = {
 					{
 						materials = { "asset/emobility/ladepark.mtl", },
-						mesh = "asset/emobility/ladepark_charger_lod0.msh",
+						mesh = "asset/emobility/supercharger_lod0.msh",
 						name = "Pfeiler",
 						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
 					},
@@ -34,7 +34,7 @@ return {
 				children = {
 					{
 						materials = { "asset/emobility/ladepark.mtl", },
-						mesh = "asset/emobility/ladepark_charger_lod1.msh",
+						mesh = "asset/emobility/supercharger_lod1.msh",
 						name = "Pfeiler",
 						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
 					},
@@ -51,7 +51,7 @@ return {
 				children = {
 					{
 						materials = { "asset/emobility/ladepark.mtl", },
-						mesh = "asset/emobility/ladepark_charger_lod2.msh",
+						mesh = "asset/emobility/supercharger_lod2.msh",
 						name = "Pfeiler",
 						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
 					},
