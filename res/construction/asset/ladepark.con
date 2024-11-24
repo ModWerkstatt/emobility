@@ -10,17 +10,10 @@ function data()
 local function makeParams()
 	return {
 		{
-			key = "roof",
-			name = _("roof"),
+			key = "type",
+			name = _("type"),
 			uiType = "BUTTON",
-			values = { _("yes"), _("no"), },
-			defaultIndex = 0
-		},
-		{
-			key = "charger",
-			name = _("charger"),
-			uiType = "BUTTON",
-			values = { _("no"), _("yes"), },
+			values = { _("Ladepark"), _("Bodenmarkierung"), _("Charger"), _("Schilder"), },
 			defaultIndex = 0
 		},
 		{
@@ -31,10 +24,59 @@ local function makeParams()
 			defaultIndex = 0
 		},
 		{
+			key = "roof",
+			name = _("roof"),
+			uiType = "CHECKBOX",
+		--	values = { _("yes"), _("no"), },
+			defaultIndex = 1
+		},
+		{
+			key = "charger",
+			name = _("charger"),
+			uiType = "CHECKBOX",
+		--	values = { _("yes"), _("no"), },
+			defaultIndex = 0
+		},
+		{
 			key = "reflection",
 			name = _("reflection"),
+			uiType = "CHECKBOX",
+		--	values = { _("no"), _("yes"), },
+			defaultIndex = 0
+		},
+		{
+			key = "style",
+			name = _("style"),
 			uiType = "BUTTON",
-			values = { _("no"), _("yes"), },
+			values = { _("classic"), _("modern"), },
+			defaultIndex = 0
+		},
+		{
+			key = "terrain",
+			name = _("terrain"),
+			uiType = "CHECKBOX",
+		--	values = { _("no"), _("yes"), },
+			defaultIndex = 1
+		},
+		{
+			key = "ground",
+			name = _("ground"),
+			uiType = "BUTTON",
+			values = { _("symbol"), _("outline"), },
+			defaultIndex = 0
+		},
+		{
+			key = "mainSigns",
+			name = _("mainSigns"),
+			uiType = "BUTTON",
+			values = { _("etankstelle"), _("parkplatz"), },
+			defaultIndex = 0
+		},
+		{
+			key = "extraSigns",
+			name = _("extraSigns"),
+			uiType = "BUTTON",
+			values = { _("eauto"), _("fahrzeuge"), },
 			defaultIndex = 0
 		},
 	}
@@ -67,303 +109,365 @@ return {
 			[3] = { { -22.0, 1.5, 0 }, { -22.0, -8, 0 }, { 4.4, -8, 0 }, { 4.4, 1.5, 0 } },
 			[4] = { { -30.8, 1.5, 0 }, { -30.8, -8, 0 }, { 4.4, -8, 0 }, { 4.4, 1.5, 0 } },
 			[5] = { { -39.6, 1.5, 0 }, { -39.6, -8, 0 }, { 4.4, -8, 0 }, { 4.4, 1.5, 0 } },		
-		}local terrainFaces1 = {
+		}
+		local terrainFaces1 = {
 			[1] = { { -04.4, 11, 0 }, { -04.4, -8, 0 }, { 4.4, -8, 0 }, { 4.4, 11, 0 } },
 			[2] = { { -13.2, 11, 0 }, { -13.2, -8, 0 }, { 4.4, -8, 0 }, { 4.4, 11, 0 } },
 			[3] = { { -22.0, 11, 0 }, { -22.0, -8, 0 }, { 4.4, -8, 0 }, { 4.4, 11, 0 } },
 			[4] = { { -30.8, 11, 0 }, { -30.8, -8, 0 }, { 4.4, -8, 0 }, { 4.4, 11, 0 } },
 			[5] = { { -39.6, 11, 0 }, { -39.6, -8, 0 }, { 4.4, -8, 0 }, { 4.4, 11, 0 } },		
 		}
+		local styleValue = ""
 		
+		if params.style == 1 then
+			styleValue = "_modern"
+		end
 		
-		result.models = { { id = "asset/emobility/ladepark.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }	
-		if params.roof == 0 then
-			if params.charger == 0 then
-				if params.reflection == 0 then
-					if params.extension == 1 then --1.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-					elseif params.extension == 2 then --2.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-					elseif params.extension == 3 then --3.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-					elseif params.extension == 4 then --4.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35, 0, z, 1 }, }
+	--[[	if params.terrain == 0 then
+			terrainFaces1 = {
+			[1] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			[2] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			[3] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			[4] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			[5] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			}
+			terrainFaces = {
+			[1] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			[2] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			[3] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			[4] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			[5] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+			}
+		end]]
+		
+		if params.type == 0 then
+			result.models = { { id = "asset/emobility/ladepark" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }	
+			if params.roof == 1 then
+				if params.charger == 0 then
+					if params.reflection == 0 then
+						if params.extension == 1 then --1.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+						elseif params.extension == 2 then --2.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+						elseif params.extension == 3 then --3.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+						elseif params.extension == 4 then --4.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35, 0, z, 1 }, }
+						end
+					elseif params.reflection == 1 then
+						if params.extension == 0 then
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark" ..styleValue.. ".mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+						elseif params.extension == 1 then --1.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark" ..styleValue.. ".mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
+						elseif params.extension == 2 then --2.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark" ..styleValue.. ".mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
+						elseif params.extension == 3 then --3.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark" ..styleValue.. ".mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
+						elseif params.extension == 4 then --4.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark" ..styleValue.. ".mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -35, 3, z, 1 }, }
+						end
+					end 
+				elseif params.charger == 1 then
+					if params.reflection == 0 then
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0,   3.25, 0, z, 1 }, }
+						if params.extension == 1 then --1.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+						elseif params.extension == 2 then --2.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+						elseif params.extension == 3 then --3.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
+						elseif params.extension == 4 then --4.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -31.75, 0, z, 1 }, }
+						end
+					elseif params.reflection == 1 then
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.25, 0, z, 1 }, }
+						if params.extension == 0 then
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark" ..styleValue.. ".mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+						elseif params.extension == 1 then --1.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
+						elseif params.extension == 2 then --2.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
+						elseif params.extension == 3 then --3.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -29.50, 3, z, 1 }, }
+						elseif params.extension == 4 then --4.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -31.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -29.50, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -35.00, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -38.25, 3, z, 1 }, }
+						end
 					end
-				elseif params.reflection == 1 then
-					if params.extension == 0 then
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark.mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-					elseif params.extension == 1 then --1.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark.mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
-					elseif params.extension == 2 then --2.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark.mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
-					elseif params.extension == 3 then --3.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark.mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
-					elseif params.extension == 4 then --4.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark.mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -35, 3, z, 1 }, }
-					end
-				end 
-			elseif params.charger == 1 then
-				if params.reflection == 0 then
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0,   3.25, 0, z, 1 }, }
-					if params.extension == 1 then --1.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-					elseif params.extension == 2 then --2.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-					elseif params.extension == 3 then --3.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
-					elseif params.extension == 4 then --4.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -31.75, 0, z, 1 }, }
-					end
-				elseif params.reflection == 1 then
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.25, 0, z, 1 }, }
-					if params.extension == 0 then
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark.mdl",   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-					elseif params.extension == 1 then --1.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
-					elseif params.extension == 2 then --2.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
-					elseif params.extension == 3 then --3.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -29.50, 3, z, 1 }, }
-					elseif params.extension == 4 then --4.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -31.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,      0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -29.50, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_1.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -35.00, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -38.25, 3, z, 1 }, }
+				end
+			elseif params.roof == 0 then
+				result.models = { { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }
+				if params.charger == 0 then
+					if params.reflection == 0 then
+						if params.extension == 1 then --1.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+						elseif params.extension == 2 then --2.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+						elseif params.extension == 3 then --3.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+						elseif params.extension == 4 then --4.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35, 0, z, 1 }, }
+						end
+					elseif params.reflection == 1 then
+						if params.extension == 0 then
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+						elseif params.extension == 1 then --1.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
+						elseif params.extension == 2 then --2.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
+						elseif params.extension == 3 then --3.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
+						elseif params.extension == 4 then --4.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -35, 3, z, 1 }, }
+						end
+					end 
+				elseif params.charger == 1 then
+					if params.reflection == 0 then
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.25, 0, z, 1 }, }
+						if params.extension == 1 then --1.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+						elseif params.extension == 2 then --2.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+						elseif params.extension == 3 then --3.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
+						elseif params.extension == 4 then --4.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -31.75, 0, z, 1 }, }
+						end
+					elseif params.reflection == 1 then
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.25, 0, z, 1 }, }
+						if params.extension == 0 then
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,     0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -3.25, 3, z, 1 }, }
+						elseif params.extension == 1 then --1.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    	   transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 	  0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    	   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
+						elseif params.extension == 2 then --2.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    	   transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 	  0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    	   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
+						elseif params.extension == 3 then --3.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    	   transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 	  0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    	   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -29.50, 3, z, 1 }, }
+						elseif params.extension == 4 then --4.Anbau
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    	   transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35.00, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -31.75, 0, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 	  0, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",    	   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -29.50, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden" ..styleValue.. ".mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -35.00, 3, z, 1 }, }
+							result.models[#result.models+1] = { id = "asset/emobility/charger" ..styleValue.. ".mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -38.25, 3, z, 1 }, }
+						end
 					end
 				end
 			end
-		elseif params.roof == 1 then
-			result.models = { { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }
-			if params.charger == 0 then
-				if params.reflection == 0 then
-					if params.extension == 1 then --1.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-					elseif params.extension == 2 then --2.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-					elseif params.extension == 3 then --3.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-					elseif params.extension == 4 then --4.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35, 0, z, 1 }, }
-					end
-				elseif params.reflection == 1 then
-					if params.extension == 0 then
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-					elseif params.extension == 1 then --1.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
-					elseif params.extension == 2 then --2.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
-					elseif params.extension == 3 then --3.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
-					elseif params.extension == 4 then --4.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.5, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -8.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.5, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -35, 3, z, 1 }, }
-					end
-				end 
-			elseif params.charger == 1 then
-				if params.reflection == 0 then
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.25, 0, z, 1 }, }
-					if params.extension == 1 then --1.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-					elseif params.extension == 2 then --2.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-					elseif params.extension == 3 then --3.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
-					elseif params.extension == 4 then --4.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -31.75, 0, z, 1 }, }
-					end
-				elseif params.reflection == 1 then
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.25, 0, z, 1 }, }
-					if params.extension == 0 then
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0,     0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -3.25, 3, z, 1 }, }
-					elseif params.extension == 1 then --1.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    	   transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 	  0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    	   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
-					elseif params.extension == 2 then --2.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    	   transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 	  0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    	   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
-					elseif params.extension == 3 then --3.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    	   transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 	  0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    	   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -29.50, 3, z, 1 }, }
-					elseif params.extension == 4 then --4.Anbau
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -08.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    	   transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -05.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -17.50, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -14.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -26.25, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -23.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -35.00, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -31.75, 0, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, 	  0, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, - 3.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -08.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",    	   transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -12.00, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -17.50, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -20.75, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -26.25, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -29.50, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/ladepark_boden.mdl", transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -35.00, 3, z, 1 }, }
-						result.models[#result.models+1] = { id = "asset/emobility/charger.mdl",        transf = { -1, 0, 0, 0, -0, -1, 0, 0, 0, 0, 1, 0, -38.25, 3, z, 1 }, }
-					end
-				end
+		elseif params.type == 1 then
+			if params.ground == 0 then
+				result.models = { { id = "asset/emobility/bodenmarkierung_eauto.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z-0.05, 1 }, } }	
+			else
+				result.models = { { id = "asset/emobility/bodenmarkierung.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z-0.05, 1 }, } }	
+			end
+		elseif params.type == 2 then
+			result.models = { { id = "asset/emobility/charger" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }	
+		elseif params.type == 3 then
+			result.models = { { id = "asset/emobility/schild.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }	
+			if params.mainSigns == 0 then
+				result.models[#result.models+1] = { id = "asset/emobility/schild_etankstelle.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.045, z+2.65, 1 }, }
+			else
+				result.models[#result.models+1] = { id = "asset/emobility/schild_parkplatz.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.045, z+2.65, 1 }, }
+			end
+			if params.extraSigns == 0 then
+				result.models[#result.models+1] = { id = "asset/emobility/schild_zusatz_eauto.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.045, z+1.9, 1 }, }
+			else
+				result.models[#result.models+1] = { id = "asset/emobility/schild_zusatz_fahrzeuge.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.045, z+1.9, 1 }, }
 			end
 		end
 		result.groundFaces = { }
-		if params.reflection == 0 then
-		result.groundFaces[#result.groundFaces + 1] = { face = terrainFaces[params.extension + 1], modes = { { type = "FILL", key = "shared/grass_cutted_01.gtex.lua" } } }
-		result.groundFaces[#result.groundFaces + 1] = { face = terrainFaces[params.extension + 1], modes = { { type = "STROKE_OUTER", key = "shared/grass_cutted_01.gtex.lua" } } }
-		elseif params.reflection == 1 then
-		result.groundFaces[#result.groundFaces + 1] = { face = terrainFaces1[params.extension + 1], modes = { { type = "FILL", key = "shared/grass_cutted_01.gtex.lua" } } }
-		result.groundFaces[#result.groundFaces + 1] = { face = terrainFaces1[params.extension + 1], modes = { { type = "STROKE_OUTER", key = "shared/grass_cutted_01.gtex.lua" } } }
+		if params.terrain == 0 then
+			result.terrainAlignmentLists = {
+				{
+					type = "EQUAL",
+					faces =  { },
+				},
+			}
+		else
+			if params.type == 0 then
+				if params.reflection == 0 then
+				result.groundFaces[#result.groundFaces + 1] = { face = terrainFaces[params.extension + 1], modes = { { type = "FILL", key = "shared/grass_cutted_01.gtex.lua" } } }
+				result.groundFaces[#result.groundFaces + 1] = { face = terrainFaces[params.extension + 1], modes = { { type = "STROKE_OUTER", key = "shared/grass_cutted_01.gtex.lua" } } }
+				elseif params.reflection == 1 then
+				result.groundFaces[#result.groundFaces + 1] = { face = terrainFaces1[params.extension + 1], modes = { { type = "FILL", key = "shared/grass_cutted_01.gtex.lua" } } }
+				result.groundFaces[#result.groundFaces + 1] = { face = terrainFaces1[params.extension + 1], modes = { { type = "STROKE_OUTER", key = "shared/grass_cutted_01.gtex.lua" } } }
+				end
+			else
+				result.terrainAlignmentLists = {
+					{
+						type = "EQUAL",
+						faces =  { },
+					},
+				}
+			end
 		end
 		return result
 	end
