@@ -1,32 +1,35 @@
 function data()
 return {
 	en = {
+
 		["mod_name"] = "Electric Mobility",
-		["mod_desc"] = "",
+		["mod_desc"] = "This package contains assets for electromobility. These include charging stations, charging parks, ground markings for car parks and signs. All assets have additional options.",
 		["name_ladepark"] = "EnBW Charging Park",
 		["desc_ladepark"] = "Asset for electric car.",
 		["type"] = "Electric Mobility Assets",
-		["extensions"] = "\n- Configuration Charging Park -\n\nExtenstions",
+		["extensions"] = "\n- Configuration Charging Park -\n\nExtensions",
 		["reflection"] = "Mirror",
 		["roof"] = "Glass roof",
-		["charger"] = "2. Charging column",
+		["charger"] = "2nd Charging column",
 		["style"] = "Design",
 		["classic"] = "classic",
 		["modern"] = "modern",
-		["terrain"] = "terrain alignment",
+		["terrain"] = "TRerrain alignment",
 		["ground"] = "\n\n- Configuration ground markings -\n\nversion",
-		["symbol"] = "symbol",
-		["outline"] = "outline",
+		["symbol"] = "Symbol",
+		["outline"] = "Outline",
 		["mainSigns"] = "\n\n- Configuration Signs -\n\nmain sign",
-		["extraSigns"] = "extra sign",
-		["etankstelle"] = "carger",
-		["parkplatz"] = "parking",
-		["eauto"] = "electric car",
-		["fahrzeuge"] = "electric vehicles",
+		["extraSigns"] = "additional sign",
+		["etankstelle"] = "Carger",
+		["parkplatz"] = "Parking",
+		["eauto"] = "Electric car",
+		["fahrzeuge"] = "Electric vehicles",
+
 	},
 	de = {
+
 		["mod_name"] = "Elektromobilität",
-		["mod_desc"] = "",
+		["mod_desc"] = "Dieses Paket enthält Assets für die Elektromobilität. Dazu zählen Ladesäulen, Ladeparks, Bodenmarkierungen für Parkplätze und Schilder. Alle Assets haben noch zusätzliche Optionen.",
 		["name_ladepark"] = "EnBW Ladepark",
 		["desc_ladepark"] = "Ein Asset für E-Autos.",
 		["type"] = "Elektromobilität Assets",
@@ -47,6 +50,7 @@ return {
 		["parkplatz"] = "Parkplatz",
 		["eauto"] = "E-Auto",
 		["fahrzeuge"] = "Elektrofahrzeuge",
+
 	},
 }
 end
