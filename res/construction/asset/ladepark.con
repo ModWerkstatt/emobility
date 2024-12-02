@@ -66,6 +66,13 @@ local function makeParams()
 			defaultIndex = 0
 		},
 		{
+			key = "chargerType",
+			name = _("chargerType"),
+			uiType = "BUTTON",
+			values = { _("Charger"), _("Ladestation"), },
+			defaultIndex = 0
+		},
+		{
 			key = "mainSigns",
 			name = _("mainSigns"),
 			uiType = "BUTTON",
@@ -429,7 +436,11 @@ return {
 				result.models = { { id = "asset/emobility/bodenmarkierung.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z-0.05, 1 }, } }
 			end
 		elseif params.type == 2 then
+			if params.chargerType == 0 then
 			result.models = { { id = "asset/emobility/charger" ..styleValue.. ".mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }
+			elseif params.chargerType == 1 then
+			result.models = { { id = "asset/emobility/ladestation.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }
+			end
 		elseif params.type == 3 then
 			result.models = { { id = "asset/emobility/schild.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }
 			if params.mainSigns == 0 then
