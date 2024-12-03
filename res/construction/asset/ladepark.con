@@ -69,21 +69,21 @@ local function makeParams()
 			key = "chargerType",
 			name = _("chargerType"),
 			uiType = "BUTTON",
-			values = { _("Charger"), _("Ladestation"), },
+			values = { _("supercharger"), _("Ladestation"), },
 			defaultIndex = 0
 		},
 		{
 			key = "mainSigns",
 			name = _("mainSigns"),
 			uiType = "BUTTON",
-			values = { _("etankstelle"), _("parkplatz"), },
+			values = { _("x"), _("etankstelle"), _("parkplatz"), },
 			defaultIndex = 0
 		},
 		{
 			key = "extraSigns",
 			name = _("extraSigns"),
 			uiType = "BUTTON",
-			values = { _("eauto"), _("fahrzeuge"), },
+			values = { _("x"), _("eauto"), _("fahrzeuge"), },
 			defaultIndex = 0
 		},
 	}
@@ -444,13 +444,15 @@ return {
 		elseif params.type == 3 then
 			result.models = { { id = "asset/emobility/schild.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, z, 1 }, } }
 			if params.mainSigns == 0 then
+			elseif params.mainSigns == 1 then
 				result.models[#result.models+1] = { id = "asset/emobility/schild_etankstelle.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.045, z+2.65, 1 }, }
-			else
+			elseif params.mainSigns == 2 then
 				result.models[#result.models+1] = { id = "asset/emobility/schild_parkplatz.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.045, z+2.65, 1 }, }
 			end
 			if params.extraSigns == 0 then
+			elseif params.extraSigns == 1 then
 				result.models[#result.models+1] = { id = "asset/emobility/schild_zusatz_eauto.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.045, z+1.9, 1 }, }
-			else
+			elseif params.extraSigns == 2 then
 				result.models[#result.models+1] = { id = "asset/emobility/schild_zusatz_fahrzeuge.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.045, z+1.9, 1 }, }
 			end
 		end
