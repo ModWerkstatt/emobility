@@ -4,8 +4,8 @@ return {
 
 		["mod_name"] = "Electric Mobility",
 		["mod_desc"] = "This package contains assets for electromobility. These include charging stations, charging parks, ground markings for car parks and signs. All assets have additional options. Available from 2003.",
-		["name_ladepark"] = "EnBW Charging Park",
-		["desc_ladepark"] = "Asset for electric car.",
+		["name_ladepark"] = "E-Mobility",
+		["desc_ladepark"] = "Different assets for electric cars.",
 		["type"] = "Electric Mobility Assets",
 		["extensions"] = "\n- Configuration Charging Park -\n\nExtensions",
 		["reflection"] = "Mirror",
@@ -33,8 +33,8 @@ return {
 
 		["mod_name"] = "Elektromobilität",
 		["mod_desc"] = "Dieses Paket enthält Assets für die Elektromobilität. Dazu zählen Ladesäulen, Ladeparks, Bodenmarkierungen für Parkplätze und Schilder. Alle Assets haben noch zusätzliche Optionen. Verfügbar ab 2003.",
-		["name_ladepark"] = "EnBW Ladepark",
-		["desc_ladepark"] = "Ein Asset für E-Autos.",
+		["name_ladepark"] = "E-Mobilität",
+		["desc_ladepark"] = "Verschiedene Assets für E-Autos.",
 		["type"] = "Elektromobilität Assets",
 		["extensions"] = "\n- Optionen Ladepark -\n\nErweiterungen",
 		["reflection"] = "Spiegelung",
